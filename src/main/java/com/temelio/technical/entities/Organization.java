@@ -12,7 +12,9 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Organization {
+    private String createdAt;
     private String name;
     private String email;
     private String address;
+    private boolean emailSent;
 }

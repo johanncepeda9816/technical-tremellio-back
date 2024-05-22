@@ -24,8 +24,12 @@ public class OrganizationController {
     @RequestMapping(method = RequestMethod.POST, path = {"/save"})
     public ResponseEntity<?> saveOrganization(@RequestBody Organization organization){
         try {
-            organizationServices.createOrganization(organization);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            Boolean created = organizationServices.createOrganization(organization);
+            if(created){
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            }else{
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
