@@ -12,16 +12,16 @@ import com.temelio.technical.entities.Organization;
 import com.temelio.technical.services.OrganizationServices;
 
 @Component
-public class OrganizationsServicesImpl implements OrganizationServices{
+public class OrganizationsServicesImpl implements OrganizationServices {
 
     private Map<String, Organization> organizations = new HashMap<String, Organization>();
-    
+
     @Override
     public boolean createOrganization(Organization organization) {
-        if(organizations.containsKey(organization.getEmail())) {
+        if (organizations.containsKey(organization.getEmail())) {
             System.out.println("La organizacion ya existe");
             return false;
-        }else{
+        } else {
             System.out.println("Organization created: " + organization.toString());
             Date date = new Date();
             organization.setCreatedAt(date.toString());
@@ -33,6 +33,7 @@ public class OrganizationsServicesImpl implements OrganizationServices{
 
     @Override
     public List<Organization> getOrganizations() {
-        return organizations.values().isEmpty() ? new ArrayList<Organization>() : new ArrayList<Organization>(organizations.values());
+        return organizations.values().isEmpty() ? new ArrayList<Organization>()
+                : new ArrayList<Organization>(organizations.values());
     }
 }

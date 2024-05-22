@@ -20,13 +20,9 @@ public class EmailManagerImpl implements EmailManagerServices{
         try {
     
             emails.stream().forEach((item) -> {
-                if (!item.getOrganization().isEmailSent()) {
-                    item.setCreatedAt(new Date().toString());
-                    item.getOrganization().setEmailSent(true);
-                    emailList.put(item.getOrganization().getEmail(), item);
-                }else{
-                    System.out.println("Email was sent before");
-                }
+                item.setCreatedAt(new Date().toString());
+                item.getOrganization().setEmailSent(true);
+                emailList.put(item.getOrganization().getEmail(), item);
             });
 
             return true;
