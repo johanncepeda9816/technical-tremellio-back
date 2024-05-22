@@ -1,6 +1,8 @@
 package com.temelio.technical.services.implementation;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
@@ -10,26 +12,29 @@ import com.temelio.technical.services.EmailManagerServices;
 @Component
 public class EmailManagerImpl implements EmailManagerServices{
 
+    private Map<String, Email> emailList = new HashMap<>();
+
     @Override
-    public Boolean sendMassiveEmails(Email organization) {
+    public Boolean sendMassiveEmails(List<Email> emails) {
         try {
-            // Simulate sending massive emails
-            for (int i = 0; i < 1000; i++) {
-                // Send email logic here
-                // ...
-            }
+    
+            emails.stream().forEach((item) -> {
+                if (!item.getOrganization().isEmailSent()) {
+                    item.setSent(true);
+                    emailList.put(item.getOrganization().getEmail(), item);
+                }
+            });
 
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
 
     @Override
     public List<Email> getEmailList() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getEmailList'");
+        return emailList.values().stream().toList();
     }
-
     
 }

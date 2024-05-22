@@ -1,5 +1,7 @@
 package com.temelio.technical.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,9 +23,9 @@ public class EmailManagerController {
     EmailManagerServices emailManagerServices;
 
       @RequestMapping(method = RequestMethod.POST, path = {"/send"})
-    public ResponseEntity<?> sendMassiveEmails(@RequestBody Email organization) {
+    public ResponseEntity<?> sendMassiveEmails(@RequestBody List<Email> emails) {
         try {
-            Boolean created = emailManagerServices.sendMassiveEmails(organization);
+            Boolean created = emailManagerServices.sendMassiveEmails(emails);
             if (created) {
                 return new ResponseEntity<>(HttpStatus.CREATED);
             } else {

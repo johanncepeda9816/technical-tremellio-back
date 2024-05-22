@@ -5,6 +5,6 @@ import java.util.List;
 import com.temelio.technical.entities.Email;
 
 public interface EmailManagerServices {
-    Boolean sendMassiveEmails(Email organization);
+    Boolean sendMassiveEmails(List<Email>  emails);
     List<Email> getEmailList();
 }

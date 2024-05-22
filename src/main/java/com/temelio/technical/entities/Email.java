@@ -14,5 +14,6 @@ import lombok.ToString;
 public class Email {
     private String template;
     private Organization organization;
+    private Boolean sent;
     
 }
