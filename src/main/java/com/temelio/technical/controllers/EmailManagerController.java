@@ -8,21 +8,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import com.temelio.technical.entities.*;
-import com.temelio.technical.services.OrganizationServices;
+
+import com.temelio.technical.entities.Email;
+import com.temelio.technical.entities.ErrorResponse;
+import com.temelio.technical.services.EmailManagerServices;
 
 @RestController
-@RequestMapping("/api/v1/organizations")
+@RequestMapping("/api/v1/email-manager")
 @CrossOrigin(origins = "http://localhost:3000")
-public class OrganizationController {
-
+public class EmailManagerController {
     @Autowired
-    private OrganizationServices organizationServices;
+    EmailManagerServices emailManagerServices;
 
-    @RequestMapping(method = RequestMethod.POST, path = {"/save"})
-    public ResponseEntity<?> saveOrganization(@RequestBody Organization organization) {
+      @RequestMapping(method = RequestMethod.POST, path = {"/send"})
+    public ResponseEntity<?> sendMassiveEmails(@RequestBody Email organization) {
         try {
-            Boolean created = organizationServices.createOrganization(organization);
+            Boolean created = emailManagerServices.sendMassiveEmails(organization);
             if (created) {
                 return new ResponseEntity<>(HttpStatus.CREATED);
             } else {
@@ -35,12 +36,13 @@ public class OrganizationController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = {"/list"})
-    public ResponseEntity<?> getOrganizations() {
+    public ResponseEntity<?> getEmailList() {
         try {
-            return new ResponseEntity<>(organizationServices.getOrganizations(), HttpStatus.OK);
+            return new ResponseEntity<>(emailManagerServices.getEmailList(), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(new ErrorResponse("Internal Server Error: " + e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    
 }
