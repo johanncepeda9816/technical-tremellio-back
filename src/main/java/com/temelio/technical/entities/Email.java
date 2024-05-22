@@ -12,8 +12,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Email {
+    private String createdAt;
     private String template;
     private Organization organization;
-    private Boolean sent;
     
 }

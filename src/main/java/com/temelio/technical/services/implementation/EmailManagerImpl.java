@@ -1,5 +1,6 @@
 package com.temelio.technical.services.implementation;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,8 +21,11 @@ public class EmailManagerImpl implements EmailManagerServices{
     
             emails.stream().forEach((item) -> {
                 if (!item.getOrganization().isEmailSent()) {
-                    item.setSent(true);
+                    item.setCreatedAt(new Date().toString());
+                    item.getOrganization().setEmailSent(true);
                     emailList.put(item.getOrganization().getEmail(), item);
+                }else{
+                    System.out.println("Email was sent before");
                 }
             });
 

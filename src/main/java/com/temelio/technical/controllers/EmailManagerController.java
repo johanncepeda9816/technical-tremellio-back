@@ -25,11 +25,11 @@ public class EmailManagerController {
       @RequestMapping(method = RequestMethod.POST, path = {"/send"})
     public ResponseEntity<?> sendMassiveEmails(@RequestBody List<Email> emails) {
         try {
-            Boolean created = emailManagerServices.sendMassiveEmails(emails);
-            if (created) {
-                return new ResponseEntity<>(HttpStatus.CREATED);
+            Boolean sent = emailManagerServices.sendMassiveEmails(emails);
+            if (sent) {
+                return new ResponseEntity<>(HttpStatus.OK);
             } else {
-                return new ResponseEntity<>(new ErrorResponse("Organization already exists"), HttpStatus.CONFLICT);
+                return new ResponseEntity<>(new ErrorResponse("Could not sent emails"), HttpStatus.CONFLICT);
             }
         } catch (Exception e) {
             e.printStackTrace();
